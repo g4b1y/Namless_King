@@ -7,7 +7,7 @@ As IDE i used IntelliJ from JetBrains. The project took me around 1/2 week to pl
 and around 4 weeks to program (without writing documentation). 
 The project took me around 1/2 week to plan and around 4 weeks to program 
 (without writing documentation). The enemies and the player images are "stolen" 
-and inspired by the game Dead Cells from Motion Twin (a company from Franceand) and Evil Empires 
+and inspired by the game Dead Cells from Motion Twin (a company from France) and Evil Empires 
 (a Team of ex-Motion Twin developers and Graphic Designers but also new Recruits). 
 
 I did not come as far as I wanted. I wanted to make it possible to move the player and fight 
