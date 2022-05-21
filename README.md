@@ -1,6 +1,7 @@
 # Namless_King
 2D Game from Scratch 
 
+#About the Game 
 The Nameless King is a 2D Game created with JAVA Swing.
 As IDE i used IntelliJ from JetBrains. The project took me around 1/2 week to plan 
 and around 4 weeks to program (without writing documentation). 
