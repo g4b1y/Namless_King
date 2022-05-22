@@ -5,8 +5,7 @@
 The Nameless King is a 2D Game created with JAVA Swing.
 As IDE i used IntelliJ from JetBrains. The project took me around 1/2 week to plan 
 and around 4 weeks to program (without writing documentation). 
-The project took me around 1/2 week to plan and around 4 weeks to program 
-(without writing documentation). The enemies and the player images are "stolen" 
+The enemies and the player images are "stolen" 
 and inspired by the game Dead Cells from Motion Twin (a company from France) and Evil Empires 
 (a Team of ex-Motion Twin developers and Graphic Designers but also new Recruits). 
 
