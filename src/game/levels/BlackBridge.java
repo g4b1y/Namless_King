@@ -62,7 +62,7 @@ public class BlackBridge extends Scene
 
                     @Override
                     public void run(){
-
+                        d.destroy();
                         Dialog d = new Dialog("fight", _this);
                         d.setPrompt("A huge unhuman being appears before you! He doesn't seem friendly!");
                         d.addOption("Attack", "1", new Runnable(){
@@ -77,6 +77,15 @@ public class BlackBridge extends Scene
                                         i.setVisible(true);
                                         e.destroy();
                                         puzzle.destroy();
+
+                                       Dialog d = new Dialog("continue", _this);
+                                        d.setPrompt("Continue");
+                                        d.addOption("Continue", "1", new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                window.setScene(new PrisonQuarters(window));
+                                            }
+                                        });
                                     }
                                 }, new Runnable(){
                                     @Override

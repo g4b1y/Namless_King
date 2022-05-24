@@ -33,7 +33,7 @@
 
         }
 
-        public static boolean hitboxes       = true;
+        public static boolean hitboxes       = false;
         public static boolean level_editor   = false;
         public static Rectangle refrenceRect = new Rectangle(0,0,1936,882);
 
@@ -119,7 +119,6 @@
         };
 
         public static String think(Main m){
-
             int i = (int) Math.round(Math.random() * (thoughts.length - 1));
             if (i == m.lastThought){
                 return think(m);

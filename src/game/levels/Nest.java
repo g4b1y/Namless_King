@@ -12,7 +12,7 @@ public class Nest extends Scene
         super(window, 15);
         Scene _this = this;
 
-        ImagePuzzle puzzle = new ImagePuzzle(Assets.absolute(Assets.Backgrounds[15]), _this, 700, 3);
+        ImagePuzzle puzzle = new ImagePuzzle(Assets.absolute(Assets.Backgrounds[16]), _this, 700, 3);
         window.add(puzzle);
 
         Interactable i = new Interactable(_this, new Rectangle(1620, 310,300, 600), new Runnable(){

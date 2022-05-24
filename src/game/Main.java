@@ -1,6 +1,10 @@
 package game;
 
+import game.levels.BlackBridge;
+import game.levels.HighPeakCastle;
 import game.levels.PrisonQuarters;
+import game.levels.ThroneRoom;
+
 public class Main
 {
     
@@ -17,12 +21,9 @@ public class Main
     public Window window;
     public Main()
     {
-
         this.window       = new Window(this);
-        Scene start       = new PrisonQuarters(this.window);
+        Scene start       = new ThroneRoom(this.window);
         window.setScene(start);
-        
     }
-
 }
 

@@ -35,7 +35,7 @@ public class HighPeakCastle extends Scene
                     public void run(){
 
                         d.destroy();
-
+                        window.setScene(new PromenadeOfTheCondemned(window));
                     }
 
                 });
