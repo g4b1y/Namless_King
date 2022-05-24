@@ -26,7 +26,7 @@ I created a simple BluePrint how the levels should look like:
 <details> 
    <summary> Click to expand the BluePrint </summary>
 
-# The BluePrint
+## BluePrint Namless_King
 
 ```mermaid
 graph TD; 
@@ -94,7 +94,7 @@ First of all, I created a simple Window with JAVA Swing, something like this:
 <details> 
     <summary> Click here to expand </summary>
     
- # The Window Class   
+ ## The Window Class   
 
 ```JAVA
 public class Window extends JFrame
@@ -134,7 +134,7 @@ I also began to add Items but I did not finish them yet. More on that later):
 <details> 
     <summary> Click here to expand </summary>
     
-# The Assets Class
+## The Assets Class
     
 ```JAVA
 public class Assets
@@ -264,7 +264,7 @@ The function 'think()' gets called in the NPC class from a fuction called say()
 <details>
    <summary> Click here to see the function </summary>
 
-# The say(String text) function
+## The say(String text) function
     
 ````JAVA
  public void say(String text){
@@ -343,7 +343,15 @@ Last but not least, I make the function executable in the run()-function.
 # Resize
 
 # Level Editor
-# Goals
+
 # Level 
+   
+# Goals
+
+# NPC
+
+# Enemy
+   
 # Problems
+   
 # Source
