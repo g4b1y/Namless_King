@@ -238,7 +238,7 @@ public class Assets
 After that, I thought I could add some "Thoughts" to the Player. I was on Discord with 
 a Friend of mine and we joked about JAVA, so I added the most used Phrase of us "Imagine 
 using JAVA, kinda Cringe". 
-The function I created is this one here:
+Here is the function: 
 ````JAVA
 public static String think(Main m){
             int i = (int) Math.round(Math.random() * (thoughts.length - 1));
@@ -333,8 +333,17 @@ The function 'think()' gets called in the NPC class from a fuction called say()
 ````
 </details>
     
+I'll explain this function. First I check if anything is written there. If it is, I clear it. 
+Then I add a new JLable to the screen, make it visible, and add a white foreground (so that 
+the text is written appears white). After that, I set the Bounds and the Font I want to use. 
+The first for-loop you see is for displayed text gets removed first before another text is 
+written otherwise, the new text gets smashed into the old one. 
+The second for-loop is the "animation" that looks written and doesn't get displayed as a whole thing. 
+After that, the Thought gets canceled after 50 milliseconds. 
+Last but not least, I make the function executable in the run()-function.
     
 # Resize
+
 # Level Editor
 # Goals
 # Level 
