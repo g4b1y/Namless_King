@@ -380,14 +380,14 @@ the game-window.
     }
 ````
 In the Constructor from the Window-class we set a title for the game-window. 
-Markup: -Bullet list
-   *make the window Fullscreen
-   *load the NPC
-   *give the window a width and a height
-   *set it visible
-   *define a minimum size 
-   *add a Background 
-   *and set the Layout of the ContentPane to null
+
+   * make the window Fullscreen
+   * load the NPC
+   * give the window a width and a height
+   * set it visible
+   * define a minimum size 
+   * add a Background 
+   * and set the Layout of the ContentPane to null
    
 After that I added a ComponentListener that tells me if the window gets resized. 
 I also check (if the level-editor is used) if an object is moved.
@@ -461,10 +461,156 @@ In the Window class is also a function that makes it easier to set a Scene to my
 
 ## Scene class
    
-# NPC
+   In the Scene class the constructor has two arguments. The first is the window, on wich window the scene should be loaded. 
+   The second is the backgorund. 
+   There are also some functions like: 
+   
+  
+   * add(), makes it possible to add components
+   * load()
+   * loadBackground()
 
-# Enemy
+   
+ ````Java
+   public void loadBackground(URL imgPath){
 
+            Image originalImg = new ImageIcon(imgPath).getImage();
+            Debugging.log(String.format("Loading Background: %s",Assets.absolute(Assets.Backgrounds[_stage])));
+            ((JFrame) window).setContentPane(new ImagePanel(originalImg, originalImg.getWidth(null), originalImg.getHeight(null)));
+
+            try {
+                BufferedImage bim = Assets.getBufferedImage(Assets.Backgrounds[_stage]); // Color
+                int sample        = bim.getRGB(0, bim.getHeight() - 1);
+                Color floor       = new Color(sample, true);
+                floorColor        = floor;
+                this.window.getRootPane().setBackground(floor);
+            } catch (Exception e) {
+                Debugging.error(String.format("Can't change floor color! (%s)", e.getMessage()));
+            }
+
+        }
+ ````
+   The loadBackground() function firsts gets the imagePath. Writes a message in the console. 
+   Creates a new element and adds the Picture. After that it changes the backgroundcolor to the lowest left pixel of
+   the loaded image. 
+   
+## Level
+   
+   First we set the window and the stage of a scene.  Than we create a Puzzle. 
+   After that we add a simple Diaolog and add a option to continue or else. 
+   Than we display the puzzle and destroy the dialog. If you lose and you did not 
+   solve the puzzle, a deathscene gets displayed. Otherwise you can go on to another 
+   level. I also add an Enemy with its position and call the think() function if you click 
+   on the Player. 
+   Here is an example for a level: 
+   
+   <details>
+      <summary> Click to expand </summary>
+   
+   ````Java
+   public class AncientSewers extends Scene
+{
+
+    public AncientSewers(Window window)
+    {
+        super(window, 3);
+        Scene _this = this;
+
+        ImagePuzzle puzzle = new ImagePuzzle(Assets.absolute(Assets.Backgrounds[6]), _this, 700, 3);
+        window.add(puzzle);
+
+        Interactable i = new Interactable(_this, new Rectangle(1666, 338,250,300), new Runnable(){
+
+            @Override
+            public void run(){
+
+                Dialog d = new Dialog("continue", _this);
+                d.setPrompt("It seems like there's an exit over there!");
+                d.addOption("Go on", "1", new Runnable(){
+
+                    @Override
+                    public void run(){
+
+                        window.setScene(new BlackBridge(window));
+
+                    }
+
+                });
+                d.addOption("Stay", "2", new Runnable(){
+
+                    @Override
+                    public void run(){
+
+                        d.destroy();
+
+                    }
+
+                });
+                d.construct();
+                d.setVisible(true);
+
+            }
+
+        });
+        i.setVisible(false);
+
+        Enemy e = new Enemy(8, _this, true, new Rectangle(505, 493,250,250), null);
+        e.setCallback(new Runnable(){
+
+            @Override
+            public void run(){
+
+                Dialog d = new Dialog("fight", _this);
+                d.setPrompt("A infected worker attacks you! He doesn't look to good...");
+                d.addOption("Continue", "1", new Runnable(){
+
+                    @Override
+                    public void run(){
+
+                        d.destroy();
+                        puzzle.start(45000, new Runnable(){
+                            @Override
+                            public void run(){
+                                i.setVisible(true);
+                                e.destroy();
+                                puzzle.destroy();
+                            }
+                        }, new Runnable(){
+                            @Override
+                            public void run(){
+                                window.setScene(new YouDied(window));
+                            }
+                        });
+
+                    }
+
+                });
+                d.construct();
+                d.setVisible(true);
+
+            }
+
+        });
+
+        final NPC me = new NPC(6, _this, true, new Rectangle(95, 609, 250, 250), null);
+        me.setCallback( new Runnable(){
+            @Override
+            public void run(){
+                me.say(Assets.think(window.main));
+            }
+        });
+
+    }
+   }
+   ````
+  </details>
+   
+   
+# NPC and Enemy
+
+# Puzzle
+
+ 
 # Goals
 
 # Problems
