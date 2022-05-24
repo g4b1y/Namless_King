@@ -22,6 +22,11 @@ but I don't have the resources and not the motivation to learn a new language
 # How I started
 First of all I created a simple Window with JAVA Swing, something like this: 
 
+<details> 
+    <summary> Click here to expand! </summary>
+    
+ # The Window Class   
+
 ```JAVA
 public class Window extends JFrame
 {
@@ -49,10 +54,19 @@ public class Window extends JFrame
 }
 
 ```
+</details>
+    
 added a Constructor and displayed a NPC as Image.
 I created a class "Assets" that holds all the information 
 I need to display it on the Window I created. The class looks
-something like this : 
+like this one here (later I added more Features and Functions. 
+I also began to add Items but I did not finish it yet. More on that later): 
+
+<details> 
+    <summary> Click here to expand </summary>
+    
+# The Assets Class
+    
 ```JAVA
 public class Assets
     {
@@ -148,10 +162,12 @@ public class Assets
         };
 }
 ```
+</details>
+
 After that I thought I could add some "Thoughts" to the Player. I was on Discord with 
 a Friend of mine and we joked about JAVA, so I added the most used Phrase of us "Imagine 
 using JAVA, kinda Cringe". 
-The function I created looks like this:
+The function I created is this one here:
 ````JAVA
 public static String think(Main m){
             int i = (int) Math.round(Math.random() * (thoughts.length - 1));
