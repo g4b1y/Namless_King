@@ -343,7 +343,90 @@ Last but not least, I make the function executable in the run()-function.
 # Resize
 
 # Level Editor
+   The LevelEditor is a class that makes it possible to drag and drop enteties on the window and get the coordinates from the object moved around. 
+   There are a few functions, most of them selfexplaining. 
+   
+   * mouseDragged(MouseEvent e), changes the value of the entity. 
+   * mouseReleased(MouseEvent e), calculates the new Position of the entity and prints it on the console.
+   * startDragging(Component c, int x, int y), tells where the Image starts getting dragged and dropped.
+   * LevelEditor(Window win), activates on the given Window and prints a simple message in the console.  
+  
+<details> 
+  
+   <summary> Click to expand the LevelEditor</summary>
+      
+      
+```JAVA
+          public class LevelEditor extends MouseInputAdapter {
 
+          public Component element;
+          public boolean dragging;
+
+          private Window win;
+
+          public int startX;
+          public int startY;
+          public int endX;
+          public int endY;
+          public int offsetX;
+          public int offsetY;
+
+          public void mouseDragged(MouseEvent e) {
+              int x = e.getX();
+              int y = e.getY();
+
+              if (dragging){
+
+                  element.setBounds(x - offsetX,(y - offsetY) - 30,element.getWidth(),element.getHeight());
+
+              }
+          }
+
+          public void mouseReleased(MouseEvent e) {
+
+              if (dragging){
+
+                  int x = e.getX();
+                  int y = e.getY();
+
+                  endX  = x;
+                  endY  = y;
+
+                  double mx = (double) Assets.refrenceRect.width /  (double) win.getBounds().width;
+                  double my = (double) Assets.refrenceRect.height / (double) win.getBounds().height;
+
+                  dragging = false;
+                  Debugging.log(String.format("New Position of %s: %s, %s", element.getClass().getSimpleName(), (int) Math.floor(element.getBounds().x * mx), (int)        Math.floor((element.getBounds().y + 110) * my)));
+
+              }
+
+          }
+
+          public void startDragging(Component c, int x, int y){
+
+              Debugging.log(String.format("Started Dragging element (%s)", c.getClass().getSimpleName()));
+
+              dragging = true;
+              element  = c;
+              startX   = x;
+              startY   = y;
+              offsetX  = x;
+              offsetY  = y;
+
+          }
+
+          public LevelEditor (Window win){
+
+              this.win = win;
+              Debugging.log("Level Editor initilized.");
+
+          }
+
+      }
+ ```
+</details>
+      
+   
 # Level 
 ```mermaid
    
