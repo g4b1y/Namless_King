@@ -1080,12 +1080,33 @@ public class Enemy extends JButton
 }
 
 ````
-      </details>
+</details>
       
    
 # Puzzle
+      
+## ImagePuzzle
+* ImagePuzzle(URL, Scene, int, int), constructor. Arguments are [ImageURL], mostly the actual scene, width of the puzzle, height of the puzzle  
+* check(), checks if the puzzle is solved
+* destroy(), destroys the puzzle  
+* disable(), "unclicks" all buttons/pieces at the beginnig 
+* resize(), resizes the puzzle after the window gets resized
+* revisualize(), "repaints" the puzzle (e.g. after a piece is swapped)  
+* select(), selects a piece
+* shuffle(), shuffle the puzzle after the inspcetion phase
+* start(int, Runnable, Runnable), starts the puzzle and creates a time bar under the puzzle
+* switchPieces(), switches two pieces next to each other (not over cross) after they got clicked  
+      
+## PuzzlePiece
 
- 
+* PuzzlePiece(Image, int, int, int, ImagePuzzle), constructor
+* paintComponent(Graphics), 
+* select(), makes the border yellow after recieving the information about the clicked piece from ImagePuzzle.select() function
+* unselect(), makes the border normal (white) after recieving the information about the clicked piece from ImagePuzzle.select() function
+      
+      
+      
+      
 # Goals
 
 # Problems
