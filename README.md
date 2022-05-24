@@ -345,13 +345,128 @@ Last but not least, I make the function executable in the run()-function.
 # Level Editor
 
 # Level 
+```mermaid
    
-# Goals
+   graph TD; 
+   
+   JFrame --> Window; 
+   Scene --> Window; 
+   Window --> Scene; 
+   Scene --> SomeLevel; 
+````
+This is a simplyfied version of a Level. A Level extends Scene. In Scene is an Object from Window and in Window is an 
+Object of Scene. Window extends JFrame (from JAVA Swing).  
+   
+## Window Class   
+In the Window class I created a function setScene(Scene scene)  
+that helps me to load Scenes into my Window (more on that later). It also checks if the Key ESCAPE is pressed and if, the I close 
+the game-window. 
+   
 
+````JAVA
+   public void setScene(Scene scene){
+        this.scene = scene;
+        scene.load();
+        this.revalidate();
+
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    System.exit(0);
+                }
+            }
+        });
+    }
+````
+In the Constructor from the Window-class we set a title for the game-window. 
+Markup: -Bullet list
+   *make the window Fullscreen
+   *load the NPC
+   *give the window a width and a height
+   *set it visible
+   *define a minimum size 
+   *add a Background 
+   *and set the Layout of the ContentPane to null
+   
+After that I added a ComponentListener that tells me if the window gets resized. 
+I also check (if the level-editor is used) if an object is moved.
+   
+<details>
+   <summary> Click to expand and see the Window Constructor</summary>
+
+## Window Class
+   
+   ````Java
+   public Window(Main m)
+    {
+        super("The Nameless King"); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
+        this.main = m;
+        setUndecorated(true); // Fullscreen
+        setIconImage(new ImageIcon(Assets.absolute(Assets.NPCS[6])).getImage());
+        setSize(900, 600);
+        setVisible(true);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setMinimumSize(new Dimension(900, 600));
+        getContentPane().setLayout(null);
+        setBackground(Color.black);
+
+
+
+        addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent componentEvent) {
+                 if (scene != null){
+                     scene.resize();
+                 } else {
+                     Debugging.warn("No Scene loaded!");
+                 }
+            }
+        });
+
+
+        if (Assets.level_editor == true){
+
+            Debugging.log("Creating level editor.");
+            le = new LevelEditor(this);
+            this.addMouseListener(le);
+            this.addMouseMotionListener(le);
+
+        }
+       
+    }
+   ````
+
+</details>   
+
+In the Window class is also a function that makes it easier to set a Scene to my window.
+
+````JAVA
+   public void setScene(Scene scene){
+        this.scene = scene;
+        scene.load();
+        this.revalidate();
+
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    System.exit(0);
+                }
+            }
+        });
+    }
+````
+
+## Scene class
+   
 # NPC
 
 # Enemy
-   
+
+# Goals
+
 # Problems
    
 # Source
