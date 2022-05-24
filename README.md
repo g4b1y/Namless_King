@@ -235,9 +235,7 @@ public class Assets
 
 # Think
 
-After that, I thought I could add some "Thoughts" to the Player. I was on Discord with 
-a Friend of mine and we joked about JAVA, so I added the most used Phrase of us "Imagine 
-using JAVA, kinda Cringe". 
+After that, I thought I could add some "Thoughts" to the Player.  
 Here is the function: 
 ````JAVA
 public static String think(Main m){
