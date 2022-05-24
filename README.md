@@ -19,11 +19,80 @@ Dead cells were made with the Framework "Haxe and Heaps"
 but I don't have the resources and not the motivation to learn a new language 
 (and I don't want to steal the game completely). 
 
-# How I started
-First of all I created a simple Window with JAVA Swing, something like this: 
+# The idea
+The idea was to create a simple 2D point and click game (as I mentioned before) 
+I created a simple BluePrint how the levels should look like: 
 
 <details> 
-    <summary> Click here to expand! </summary>
+   <summary> Click to expand the BluePrint </summary>
+
+# The BluePrint
+
+```mermaid
+graph TD; 
+    PrisonQuarters --> PromenadeOfTheCondemned; 
+    
+    PromenadeOfTheCondemned --> ToxicSewers; 
+    PromenadeOfTheCondemned --> Ramparts; 
+    PromenadeOfTheCondemned --> DilapidatedAboretum; 
+    
+    ToxicSewers --> CorruptedPrison; 
+    ToxicSewers -->AcientSewers; 
+    
+    Ramparts --> Ossuary; 
+    Ramparts -->BlackBridge;
+    
+    DilapidatedAboretum --> PrisonDepths; 
+    DilapidatedAboretum --> MorassOfTheBanished; 
+    
+    CorruptedPrison --> AcientSewers; 
+    
+    AcientSewers --> BlackBridge; 
+    
+    Ossuary --> BlackBridge; 
+    
+    PrisonDepths --> MorassOfTheBanished; 
+    
+    MorassOfTheBanished --> Nest; 
+    
+    
+    
+    BlackBridge --> Graveyard; 
+    BlackBridge --> StiltVillage; 
+    
+    Graveyard --> Cavern; 
+    
+    StiltVillage --> ClockTower; 
+    
+    Cavern --> ClockRoom; 
+    
+    ClockTower --> ClockRoom; 
+    
+    ClockRoom --> HighPeakCastle; 
+    
+    HighPeakCastle --> ThroneRoom; 
+    
+    
+    
+    Nest --> FracturedShrines; 
+    Nest --> ForgottenSepulcher; 
+    
+    FracturedShrines --> UndyingShores; 
+    
+    ForgottenSepulcher --> FracturedShrines; 
+    
+    UndyingShores --> Mausoleum; 
+    
+    Mausoleum --> HighPeakCastle; 
+    
+````
+</details>
+    
+# How I started
+First of all, I created a simple Window with JAVA Swing, something like this: 
+
+<details> 
+    <summary> Click here to expand </summary>
     
  # The Window Class   
 
@@ -56,11 +125,11 @@ public class Window extends JFrame
 ```
 </details>
     
-added a Constructor and displayed a NPC as Image.
+added a Constructor and displayed an NPC as an Image.
 I created a class "Assets" that holds all the information 
 I need to display it on the Window I created. The class looks
 like this one here (later I added more Features and Functions. 
-I also began to add Items but I did not finish it yet. More on that later): 
+I also began to add Items but I did not finish them yet. More on that later): 
 
 <details> 
     <summary> Click here to expand </summary>
@@ -164,7 +233,9 @@ public class Assets
 ```
 </details>
 
-After that I thought I could add some "Thoughts" to the Player. I was on Discord with 
+# Think
+
+After that, I thought I could add some "Thoughts" to the Player. I was on Discord with 
 a Friend of mine and we joked about JAVA, so I added the most used Phrase of us "Imagine 
 using JAVA, kinda Cringe". 
 The function I created is this one here:
@@ -179,4 +250,88 @@ public static String think(Main m){
 
         }
 ````
+This function creates a random number and returns a String at the position [ i ] from the thoughts-array.
+
+
+````JAVA
+public static String[] thoughts = {
+            "Imagine using Java, kinda cringe",
+            "Why are we still here? Just to suffer?",
+            "*thinking intensifies*",
+            "Sometimes my genius is... It's almost frightening"
+        };
+````
+The function 'think()' gets called in the NPC class from a fuction called say() 
+
+<details>
+   <summary> Click here to see the function </summary>
+
+# The say(String text) function
+    
+````JAVA
+ public void say(String text){
+
+        final String _text = text;
+
+        if (speech != null){
+
+            scene.window.getContentPane().remove(speech);
+            scene.window.getContentPane().repaint();
+
+        }
+
+        JLabel t = new JLabel("", SwingConstants.CENTER);
+        scene.window.add(t);
+
+        t.setVisible(true);
+        t.setForeground(Color.WHITE);
+
+
+        t.setBounds(this.getBounds().x - ((300 - this.getBounds().width) / 2), this.getBounds().y - 50, 300, 50);
+        t.setFont(new Font(t.getFont().getFontName(), Font.PLAIN, 20));
+        speech = t;
+
+        for (int i = _scheduled_tasks.size() - 1; i >= 0; i--){
+
+            _scheduled_tasks.get(i).cancel(false);
+            _scheduled_tasks.remove(i);
+
+        }
+
+        for (int i = 0; i <= text.length(); i++){
+
+            final int _i = i;
+            _scheduled_tasks.add(executor.schedule(new Runnable(){
+                @Override
+                public void run(){
+                    if (speech != null){
+                        speech.setText(String.format("<html><p style=\"text-align: center;\">%s</p></html>", _text.substring(0, _i)));
+                    }
+                }
+            }, 40 * i, TimeUnit.MILLISECONDS));
+
+        }
+
+    
+
+        if (_thought != null && _thought.isCancelled() == false){
+
+            _thought.cancel(false);
+
+        }
+
+        _thought = executor.schedule(new Runnable(){
+            @Override
+            public void run(){
+                if (speech != null){
+                    speech.setText("");
+                }
+            }
+        }, 3000 + (50 * text.length()), TimeUnit.MILLISECONDS);
+
+    }
+````
+</details>
+    
+    
 
