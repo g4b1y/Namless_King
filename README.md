@@ -1094,7 +1094,7 @@ public class Enemy extends JButton
 * revisualize(), "repaints" the puzzle (e.g. after a piece is swapped)  
 * select(), selects a piece
 * shuffle(), shuffle the puzzle after the inspcetion phase
-* start(int, Runnable, Runnable), starts the puzzle and creates a time bar under the puzzle
+* start(int, Runnable, Runnable), starts the puzzle and creates a time bar below the puzzle
 * switchPieces(), switches two pieces next to each other (not over cross) after they got clicked  
       
 ## PuzzlePiece
