@@ -706,8 +706,8 @@ In the Window class is also a function that makes it easier to set a Scene to my
    
    
    
-   <details> 
-      <summary>Click to expand the NPC class</summary>
+<details> 
+   <summary>Click to expand the NPC class</summary>
 
       ### NPC
 
@@ -1102,11 +1102,142 @@ public class Enemy extends JButton
 * PuzzlePiece(Image, int, int, int, ImagePuzzle), constructor
 * paintComponent(Graphics), 
 * select(), makes the border yellow after recieving the information about the clicked piece from ImagePuzzle.select() function
-* unselect(), makes the border normal (white) after recieving the information about the clicked piece from ImagePuzzle.select() function
+* unselect(), makes the border normal (grey) after recieving the information about the clicked piece from ImagePuzzle.select() function. 
+
+<details>     
+   <summary> Click to expand class diagram </summary>
+    
+    
+````mermaid
+classDiagram
+class PuzzlePiece {
+      -Image image
+      - int divisions
+      - PuzzlePiece _this
+      
+      + boolean disabled
+      + int gx
+      + int gy
+      + int px
+      + int py
+      }
+      
+      PuzzlePiece : +unselect()
+      PuzzlePiece : +selcect()
+      PuzzlePiece : PuzzlePiece(Image image, int gx, int gy, int divisions, ImagePuzzle puzzle) ~ctor~
+      PuzzlePiece : #paintComponent(Graphics g) 
       
       
+class ImagePuzzle {
+      - boolean started
+      - int size
+      - int scene 
+      - Image image
+      - PuzzlePieces[] pieces
+      - int divisions
+      - PuzzlePiece piece1
+      - PuzzlePiece piece2
+      - Timer timer
+      - double percent
+      - JPanel progress
+      - Runnable win
+      - ImagePuzzle _this
+      
+      + int prepTime
+      }
+      
+      ImagePuzzle : +destroy()
+      ImagePuzzle : -resize()
+      ImagePuzzle : +disable()
+      ImagePuzzle : +check() boolean
+      ImagePuzzle : -revisualize()
+      ImagePuzzle : -shuffle()
+      ImagePuzzle : -switchPieces()
+      ImagePuzzle : +select(PuzzlePiece piece)
+      ImagePuzzle : +start(int time, Runnable winCallback, Runnable loseCallback)
+      ImagePuzzle : +ImagePuzzle(URL image, Scene scene, int size, int divisions) ~ctor~ 
       
       
+      class Level {
+         Enemy e    
+         final NPC me
+      }
+      
+      Level : +Level(Window window) ~ctor~
+      
+      class Scene {
+         +Window window
+         +ArrayList~Component~ components
+         +JLabel background
+         +Dialog dialog
+         +Color floorColor
+         -int _stage
+         
+         +boolean interactionsDisabled
+      }
+      
+      Scene : +Scene(Window window) ~ctor~
+      Scene : +add(Component component) 
+      Scene : +load()
+      Scene : +resize()
+      Scene : +loadBackground(URL imgPath) 
+      
+      class Enemy{
+          - int eid
+          - Scene scene
+          - Enemy _this
+          - boolean flipImg
+
+          - int originalImageHeight
+          - int originalImageWidth
+          - Rectangle originalRect
+      
+          - Image image
+          - Runnable callback
+      }
+      
+      Enemy : #paintComponent(Graphics g) 
+      Enemy : -resize()
+      Enemy : +setCallback(Runnable callback)
+      Enemy : +destroy()
+      Enemy : Enemy(int eid, Scene scene, boolean flip, Rectangle rect, Runnable callback) ~ctor~
+      
+      class NPC {
+          - int npcid
+          - Scene scene
+          - NPC _this
+          - boolean flipImg
+
+          - int originalImageHeight
+          - int originalImageWidth
+          - Rectangle originalRect
+
+          - JLabel speech
+
+          - Image image
+          - final ScheduledThreadPoolExecutor executor 
+          - ScheduledFuture~?~ _thought
+          - ArrayList~ScheduledFuture ~?~~ _scheduled_tasks 
+
+          + Runnable callback;
+      }
+      
+      NPC : #paintComponent(Graphics g) 
+      NPC : -resize()
+      NPC : +NPC(int eid, Scene scene, boolean flip, Rectangle rect, Runnable callback) ~ctor~
+      NPC : +setCallback(Runnable callback) 
+      NPC : + destroy()
+      NPC : +say(String text)
+      NPC : +flip(boolean flip) 
+   
+      Level -- NPC
+      Level -- Enemy
+      Scene <-- Level
+      PuzzlePiece -- ImagePuzzle
+      Level -- ImagePuzzle
+ ````     
+</details>
+                
 # Goals
 
 # Problems
