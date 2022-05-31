@@ -1259,6 +1259,6 @@ class ImagePuzzle {
    The goals of the Project were to improve my JAVA (I ussualy program in C++) and make a playable game. I had alot of fun and the game could easily get expanded by adding fighting enemies, making the player moveable, adding a storry and adding Items. 
    I also wanted to improve and understand how simple games are working and how to design a game that contains readable sourcecode. 
 # Problems
-   There were a few problems like bugs and a lot of error messages. The only thing that were a real problem was the time-managment. I wasted at the beginning of the project alot of time by doing nothing. 
+   There were a few problems like bugs and a lot of error messages. One main problem was the time managment. I wasted at the beginning of the project alot of time by doing nothing. 
    
 # Source
