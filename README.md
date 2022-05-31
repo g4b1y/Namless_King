@@ -342,8 +342,25 @@ Last but not least, I make the function executable in the run()-function.
     
 # Resize
 The resize fuction in NPC is the most complex, so I will explain this function (the other resize() function working similar).
-
+First we calculate the new xMultiplier and the yMultiplier. If the Multipliers are below 1 and above 0 than the window gets smaller. If the Multiplier is bigger than 1, then the Window gets bigger. We get the xMuitplier by dividing the scene-width through the Assets-window-width 1936 * 882. We get the yMultiplier by subtracting the dialogsection.height from the scene-height and dividing it by Assets-heigth.
    
+   ````JAVA
+         double xMultiplier     = scene.window.getWidth() / Assets.refrenceRect.getWidth();
+         double yMultiplier     = (scene.window.getRootPane().getHeight() - Assets.Scalings.get("dialog-section")) / Assets.refrenceRect.getHeight();
+   ````
+   After that happend the function calculates the new x and new y position of the Window and the new width and new height by multipling the old position by the xMultiplier and yMultiplier and the new width and new height, also by multipling the old width and old height by the xMultiplier and yMultiplier. 
+   
+   ````JAVA
+        int newX               = (int) (originalRect.getX() * xMultiplier);
+        int newY               = (int) (originalRect.getY() * yMultiplier);
+
+        int newW               = (int) (originalRect.getWidth()  * yMultiplier);
+        int newH               = (int) (originalRect.getHeight() * yMultiplier);
+
+        Rectangle relativeRect = new Rectangle(newX, newY, newW, newH);
+        setBounds(relativeRect);
+   ````
+   If the NPC speeks at that moment, it gets also resized. First we check if the NPC speeks. If he does, basicly the same  proceder started over again and resizes the speech with a simillar method as the NPC gets resized. 
 # Level Editor
    The LevelEditor is a class that makes it possible to drag and drop enteties on the window and get the coordinates from the object moved around. 
    There are a few functions, most of them selfexplaining. 
@@ -1239,7 +1256,9 @@ class ImagePuzzle {
 </details>
                 
 # Goals
-
+   The goals of the Project were to improve my JAVA (I ussualy program in C++) and make a playable game. I had alot of fun and the game could easily get expanded by adding fighting enemies, making the player moveable, adding a storry and adding Items. 
+   I also wanted to improve and understand how simple games are working and how to design a game that contains readable sourcecode. 
 # Problems
+   There were a few problems like bugs and a lot of error messages. The only thing that were a real problem was the time-managment. I wasted at the beginning of the project alot of time by doing nothing. 
    
 # Source
