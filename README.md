@@ -1114,6 +1114,78 @@ public class Enemy extends JButton
 * start(int, Runnable, Runnable), starts the puzzle and creates a time bar below the puzzle
 * switchPieces(), switches two pieces next to each other (not over cross) after they got clicked  
       
+ When a puzzle gets created, we give the constructor the number of how many divisions we want. 
+   
+ ````JAVA
+   public ImagePuzzle(URL image, Scene scene, int size, int divisions){ ... }
+  `````
+   . Than we create a new Gridlayout out of buttons. 
+   If a button gets clicked, the boarder changes color to yellow (unclicked is it grey). After the second button is clicked we   look if the first piece is directly next to the other (not over cross). If it is, we change the two pieces. I also added a time bar, that shows how much time is left to solve the puzzle. In the preperation phase the puzzle gets solved displayed first, after that we set the time-bar visible and shuffle the puzzle. If you dont solve the puzzle in the given time, the death-scene gets displayed and you can leave the game or keep  going on. 
+   
+   
+   This is the start() function form the class ImagePuzzle. It gets called to start the puzzle. 
+ ````JAVA
+   public void start(int time, Runnable winCallback, Runnable loseCallback){
+
+        if (started == true){
+
+            Debugging.warn("Tried to start puzzle that already had been started prior.");
+            return;
+
+        }
+        started = true;
+
+        setVisible(true);
+        progress.setVisible(true);
+
+        Timer t1 = new Timer();
+        t1.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        shuffle();
+                    }
+                });
+                t1.cancel();
+                Timer t = new Timer();
+                timer   = t;
+                long finishTime = System.currentTimeMillis() + time;
+                t.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        long currentTime = System.currentTimeMillis();
+                        if (finishTime - currentTime <= 0L){
+                            progress.setBounds((int) progress.getBounds().getX(), (int) (getBounds().getY() + getBounds().getHeight() + 20), 0, 10);
+
+                            if (loseCallback != null){
+
+                                loseCallback.run();
+                                disable();
+
+                            }
+
+                            t.cancel();
+                            
+                        } else {
+
+                            long timeLeft = finishTime - currentTime;
+                            percent       = 100d / time * (double) timeLeft;
+                            int prog      = (int) Math.floor((double) getBounds().getWidth() / time * timeLeft);
+                            progress.setBounds((int) progress.getBounds().getX(), (int) (getBounds().getY() + getBounds().getHeight() + 20), prog, 10);
+
+                        }
+                    }
+                }, 0, 10);
+
+            }
+        }, prepTime);
+        this.win = winCallback;
+
+    }
+   `````
+   
 ## PuzzlePiece
 
 * PuzzlePiece(Image, int, int, int, ImagePuzzle), constructor
@@ -1262,3 +1334,14 @@ class ImagePuzzle {
    There were a few problems like bugs and a lot of error messages. One main problem was the time managment. I wasted at the beginning of the project alot of time by doing nothing. 
    
 # Source
+   * https://stackoverflow.com/
+   * https://www.geeksforgeeks.org/java/?ref=shm
+   * https://deadcells.fandom.com/wiki/Dead_Cells_Wiki
+   * https://deadcells.fandom.com/wiki/NPCs
+   * https://deadcells.fandom.com/wiki/Biomes
+   * https://docs.oracle.com/javase/tutorial/uiswing/index.html
+   
+   There were defintily a lot more sources but I didnt write them down and the soruces above are the sources I mainly used. 
+   And for the motivation I heard a lot of music form chilled-cow and I drank a lot of coffee and black tea. 
+   
+   A friend of my old class supported me by answereing me some questions about JAVA-swing : Marc 
